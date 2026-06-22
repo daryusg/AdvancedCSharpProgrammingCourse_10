@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ClubMembershipApplication/ClubMembershipApplication.csproj" />
+  <Project Path="FieldValidatorAPI/FieldValidatorAPI.csproj" />
+</Solution>

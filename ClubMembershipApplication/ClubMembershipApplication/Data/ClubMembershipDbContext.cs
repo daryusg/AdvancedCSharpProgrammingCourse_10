@@ -11,7 +11,13 @@ namespace ClubMembershipApplication.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlite($"Data Source={AppDomain.CurrentDomain.BaseDirectory}ClubMembershipDb.db");
-            optionsBuilder.UseSqlite($"Data Source=ClubMembershipDb.db"); //20260621
+            //optionsBuilder.UseSqlite($"Data Source=ClubMembershipDb.db"); //20260621
+            //Console.WriteLine($"Environment.CurrentDirectory: {Environment.CurrentDirectory}");
+            //Console.WriteLine($"Directory.GetCurrentDirectory(): {Directory.GetCurrentDirectory()}");
+            //Console.WriteLine($"AppContext.BaseDirectory: {AppContext.BaseDirectory}");
+            var dbPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "ClubMembershipDb.db")); //get db from csproj dir
+            //Console.WriteLine($"DB Path: {dbPath}");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}"); //20260623
             base.OnConfiguring(optionsBuilder);
         }
 

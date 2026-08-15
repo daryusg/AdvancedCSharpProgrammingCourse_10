@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EmployeeUWPApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "EmployeeUWPApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

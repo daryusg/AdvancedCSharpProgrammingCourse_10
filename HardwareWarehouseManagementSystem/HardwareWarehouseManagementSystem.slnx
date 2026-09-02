@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="HardwareWarehouseManagementSystem/HardwareWarehouseManagementSystem.csproj" />
+  <Project Path="WarehouseManagementSystemAPI/WarehouseManagementSystemAPI.csproj" />
+</Solution>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TestClientAsyncUWP (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TestClientAsyncUWP (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

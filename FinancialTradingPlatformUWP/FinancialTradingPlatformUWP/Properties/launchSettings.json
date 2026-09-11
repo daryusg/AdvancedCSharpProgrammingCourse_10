@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "FinancialTradingPlatformUWP (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "FinancialTradingPlatformUWP (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

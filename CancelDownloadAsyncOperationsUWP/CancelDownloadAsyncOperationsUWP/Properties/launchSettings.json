@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CancelDownloadAsyncOperationsUWP (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CancelDownloadAsyncOperationsUWP (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

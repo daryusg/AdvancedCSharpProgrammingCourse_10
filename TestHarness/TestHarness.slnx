@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TestHarness/TestHarness.csproj" />
+  <Project Path="UtilityFunctions/UtilityFunctions.csproj" />
+</Solution>

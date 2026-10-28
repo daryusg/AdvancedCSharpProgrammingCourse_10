@@ -1,0 +1,11 @@
+{
+  "HeaderChar": "+",
+  "HeaderSpaceChar": " ",
+  "_Comment_AvailableColours": "Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White",
+  "ColourBorder": "Cyan",
+  "ColourText": "DarkGreen",
+  "HeaderHeight": 1,
+  "HeaderHeightSpacing": 2,
+  "HeaderWidth": 3,
+  "HeaderWidthSpacing": 3
+}

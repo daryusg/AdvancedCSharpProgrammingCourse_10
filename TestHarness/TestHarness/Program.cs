@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Transactions;
 
 namespace TestHarness
@@ -40,6 +42,7 @@ namespace TestHarness
             while (true)
             {
                 Console.Clear();
+                WriteHeadingToScreen($"Main Menu");
                 string str = "Please press the number key associated with the test class";
                 WritePromptToScreen(str, true);
 
@@ -165,7 +168,7 @@ namespace TestHarness
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.DarkGreen;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"Result: {result}");
+            Console.WriteLine($"Result: {result:N0}"); //N = Number format (adds thousands separators), 0 = No decimal places.
             Console.ResetColor();
             Console.WriteLine();
         }
@@ -275,20 +278,73 @@ namespace TestHarness
 
         private static void WriteHeadingToScreen(string str)
         {
-            string str2 = "---   ";
-            string str3 = "   ---";
-            var colourBorder = ConsoleColor.Green;
-            var colourText = ConsoleColor.Yellow;
-            int addedLength = str2.Length + str3.Length;
-            int totalLength = str.Length + addedLength;
-            Console.ForegroundColor = colourBorder;
-            Console.WriteLine(new string('-', totalLength));
-            Console.Write(str2);
-            Console.ForegroundColor = colourText;
-            Console.Write(str);
-            Console.ForegroundColor = colourBorder;
-            Console.Write(str3 + "\n");
-            Console.WriteLine(new string('-', totalLength));
+            //--- vars ---------------------------------------------------------------------
+            //char headerChar = '+';
+            //char headerSpaceChar = ' ';
+            //var colourBorder = ConsoleColor.Green;
+            //var colourText = ConsoleColor.Yellow;
+            //int headerHeight = 1;
+            //int headerHeightSpacing = 2;
+            //int headerWidth = 3;
+            //int headerWidthSpacing = 3;
+            //int BorderWidth = str.Length + (2 * headerWidth) + (2 * headerWidthSpacing);
+            //-
+            //i used chatgpt to read from a json file
+            //------------------------------------------------------------------------------
+            // Read the JSON file
+            string json = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "HeaderVars.json"));
+
+            // Convert JSON into a HeaderVars object
+            var options = new JsonSerializerOptions
+            {
+                Converters = { new JsonStringEnumConverter() } //chatgpt: needed for the colours
+            };
+
+            HeaderVars vars = JsonSerializer.Deserialize<HeaderVars>(json, options)!;
+            //------------------------------------------------------------------------------
+            // Assign the configuration values
+            char headerChar = vars.HeaderChar;
+            char headerSpaceChar = vars.HeaderSpaceChar;
+
+            ConsoleColor colourBorder = vars.ColourBorder;
+            ConsoleColor colourText = vars.ColourText;
+
+            int headerHeight = vars.HeaderHeight;
+            int headerHeightSpacing = vars.HeaderHeightSpacing;
+
+            int headerWidth = vars.HeaderWidth;
+            int headerWidthSpacing = vars.HeaderWidthSpacing;
+
+            // Calculate the border width
+            int BorderWidth = str.Length
+                + (2 * headerWidth)
+                + (2 * headerWidthSpacing);
+            //------------------------------------------------------------------------------
+            string border = new string(headerChar, BorderWidth);
+            string borderWithSpacing = /*left border + spacing*/ new string(headerChar, headerWidth) + new string(headerSpaceChar, headerWidthSpacing)
+                /*text spacing*/ + new string(' ', str.Length)
+                /*spacing + right border*/ + new string(headerSpaceChar, headerWidthSpacing) + new string(headerChar, headerWidth);
+            //------------------------------------------
+            //display border, spacing, text, and newline
+            //------------------------------------------
+            Console.ForegroundColor = colourBorder; //set border colour
+            for (int x = 1; x <= headerHeight; x++)
+                Console.WriteLine(border); //top border
+            for (int x = 1; x <= headerHeightSpacing; x++)
+                Console.WriteLine(borderWithSpacing); //top border with spacing
+            Console.Write(new string(headerChar, headerWidth)); //border
+            Console.Write(new string(headerSpaceChar, headerWidth)); //spacing
+            Console.ForegroundColor = colourText; //set text colour
+            Console.Write(str); //text
+            Console.ForegroundColor = colourBorder; //set border colour
+            Console.Write(new string(headerSpaceChar, headerWidth)); //spacing
+            Console.Write(new string(headerChar, headerWidth)); //border
+            Console.Write("\n");
+            //----------------------------------
+            for (int x = 1; x <= headerHeightSpacing; x++)
+                Console.WriteLine(borderWithSpacing); //top border with spacing
+            for (int x = 1; x <= headerHeight; x++)
+                Console.WriteLine(border); //bottom border
             Console.ResetColor();
             Console.WriteLine();
         }
